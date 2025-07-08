@@ -1,0 +1,377 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.timer, .mistakes {
+    font-weight: bold;
+    color: #555;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.difficulty-selector label {
+    font-weight: bold;
+    color: #555;
+}
+
+.difficulty-selector select {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+}
+
+.game-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#new-game {
+    background: #28a745;
+    color: white;
+}
+
+#new-game:hover {
+    background: #218838;
+}
+
+#reset {
+    background: #ffc107;
+    color: #333;
+}
+
+#reset:hover {
+    background: #e0a800;
+}
+
+#hint {
+    background: #17a2b8;
+    color: white;
+}
+
+#hint:hover {
+    background: #138496;
+}
+
+#clear {
+    background: #dc3545;
+    color: white;
+}
+
+#clear:hover {
+    background: #c82333;
+}
+
+.sudoku-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 2px;
+    background: #333;
+    border: 3px solid #333;
+    border-radius: 8px;
+    padding: 2px;
+    max-width: 450px;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.sudoku-cell {
+    background: white;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sudoku-cell:hover {
+    background: #f0f0f0;
+}
+
+.sudoku-cell.selected {
+    background: #007bff;
+    color: white;
+}
+
+.sudoku-cell.given {
+    background: #f8f9fa;
+    color: #333;
+    cursor: default;
+}
+
+.sudoku-cell.given:hover {
+    background: #f8f9fa;
+}
+
+.sudoku-cell.conflict {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+.sudoku-cell.completed {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.sudoku-cell:nth-child(3n) {
+    border-right: 3px solid #333;
+}
+
+.sudoku-cell:nth-child(9n) {
+    border-right: 1px solid #ddd;
+}
+
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 3px solid #333;
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.number-btn {
+    background: #6c757d;
+    color: white;
+    padding: 15px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.number-btn:hover {
+    background: #5a6268;
+    transform: scale(1.05);
+}
+
+.number-btn.selected {
+    background: #007bff;
+}
+
+.game-status {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#status-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .game-buttons {
+        justify-content: center;
+    }
+    
+    .sudoku-cell {
+        font-size: 1em;
+    }
+    
+    .number-pad {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .number-btn {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .game-buttons {
+        flex-wrap: wrap;
+    }
+    
+    button {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.sudoku-cell {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sudoku-cell:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sudoku-cell.selected {
+    animation: pulse 0.6s ease-in-out;
+}
+
+.number-btn:active {
+    transform: scale(0.95);
+}
+
+.container {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.game-status {
+    animation: slideIn 0.5s ease-out;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sudoku-cell.completed {
+    animation: bounce 0.6s ease-in-out;
+}
+
+.success {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.error {
+    animation: shake 0.5s ease-in-out;
+}
+
+.info {
+    animation: fadeIn 0.5s ease-out;
+}
