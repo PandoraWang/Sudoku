@@ -187,12 +187,13 @@ class SudokuGame {
         }
 
         const previousValue = this.grid[row][col];
-        this.grid[row][col] = num;
-
+        
         if (num !== 0 && !this.isValidMove(row, col, num)) {
             this.mistakes++;
             return false;
         }
+
+        this.grid[row][col] = num;
 
         if (this.isComplete) {
             this.checkWin();
