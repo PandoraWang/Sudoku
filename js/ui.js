@@ -81,10 +81,6 @@ class SudokuUI {
 
         this.selectedCell = { row, col };
         this.updateCellHighlights();
-        
-        if (this.selectedNumber) {
-            this.makeMove(row, col, this.selectedNumber);
-        }
     }
 
     selectNumber(number) {
@@ -284,7 +280,10 @@ class SudokuUI {
 
     handleKeyPress(event) {
         if (event.key >= '1' && event.key <= '9') {
-            this.selectNumber(parseInt(event.key));
+            const number = parseInt(event.key);
+            if (this.selectedCell) {
+                this.makeMove(this.selectedCell.row, this.selectedCell.col, number);
+            }
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
             this.clearCell();
         } else if (event.key === 'Escape') {
