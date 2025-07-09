@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(mkdir:*)",
-      "Bash(open index.html)"
+      "Bash(open index.html)",
+      "Bash(git commit:*)",
+      "Bash(npm test:*)"
     ],
     "deny": []
   }
