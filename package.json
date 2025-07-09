@@ -1,0 +1,30 @@
+{
+  "name": "sudoku-game",
+  "version": "1.0.0",
+  "description": "A fully functional, interactive Sudoku game built with HTML, CSS, and JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": ["sudoku", "game", "javascript", "puzzle"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "testMatch": ["<rootDir>/tests/**/*.test.js"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/sudoku.test.js",
+      "/tests/utils.test.js",
+      "/tests/integration.test.js",
+      "/tests/basic.test.js"
+    ]
+  }
+}

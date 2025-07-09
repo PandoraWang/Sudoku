@@ -372,3 +372,35 @@ button:active {
 .info {
     animation: fadeIn 0.5s ease-out;
 }
+
+.celebration {
+    animation: celebrationGlow 2s ease-in-out;
+    transform: scale(1.02);
+}
+
+@keyframes celebrationGlow {
+    0% {
+        box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(40, 167, 69, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+    }
+}
+
+.success {
+    white-space: pre-line;
+    font-size: 1.3em;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#status-message {
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+}

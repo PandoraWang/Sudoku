@@ -234,18 +234,50 @@ class SudokuGame {
             }
         }
 
+        if (this.isValidSolution()) {
+            this.isComplete = true;
+            this.stopTimer();
+            return true;
+        }
+
+        this.isComplete = false;
+        return false;
+    }
+
+    isValidSolution() {
         for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
-                if (!this.isValidMove(row, col, this.grid[row][col])) {
-                    this.isComplete = false;
+            if (!this.isValidGroup(this.grid[row])) {
+                return false;
+            }
+        }
+
+        for (let col = 0; col < 9; col++) {
+            const column = this.grid.map(row => row[col]);
+            if (!this.isValidGroup(column)) {
+                return false;
+            }
+        }
+
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                const box = [];
+                for (let row = boxRow * 3; row < boxRow * 3 + 3; row++) {
+                    for (let col = boxCol * 3; col < boxCol * 3 + 3; col++) {
+                        box.push(this.grid[row][col]);
+                    }
+                }
+                if (!this.isValidGroup(box)) {
                     return false;
                 }
             }
         }
 
-        this.isComplete = true;
-        this.stopTimer();
         return true;
+    }
+
+    isValidGroup(group) {
+        const numbers = group.filter(num => num !== 0);
+        return numbers.length === 9 && new Set(numbers).size === 9;
     }
 
     resetGame() {

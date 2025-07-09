@@ -256,16 +256,40 @@ class SudokuUI {
         const elapsedTime = this.game.getElapsedTime();
         const timeString = formatTime(elapsedTime);
         
-        showMessage(`Congratulations! You completed the puzzle in ${timeString} with ${this.game.mistakes} mistakes!`, 'success', 5000);
+        this.selectedCell = null;
+        this.updateCellHighlights();
+        
+        this.animateWinCelebration();
+        
+        showMessage(`🎉 CONGRATULATIONS! 🎉\nPuzzle completed in ${timeString}\nMistakes: ${this.game.mistakes}\nDifficulty: ${this.game.difficulty.charAt(0).toUpperCase() + this.game.difficulty.slice(1)}`, 'success', 8000);
         
         this.game.clearSave();
         
         setTimeout(() => {
-            const playAgain = confirm('Congratulations! Would you like to play another game?');
+            const playAgain = confirm('🎉 Congratulations! Amazing job completing the puzzle! 🎉\n\nWould you like to play another game?');
             if (playAgain) {
                 this.startNewGame();
             }
+        }, 3000);
+    }
+
+    animateWinCelebration() {
+        const grid = document.getElementById('sudoku-grid');
+        grid.classList.add('celebration');
+        
+        setTimeout(() => {
+            grid.classList.remove('celebration');
         }, 2000);
+        
+        const cells = document.querySelectorAll('.sudoku-cell');
+        cells.forEach((cell, index) => {
+            setTimeout(() => {
+                cell.style.animation = 'bounce 0.6s ease-in-out';
+                setTimeout(() => {
+                    cell.style.animation = '';
+                }, 600);
+            }, index * 20);
+        });
     }
 
     animateInvalidMove(row, col) {
